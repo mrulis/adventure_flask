@@ -13,6 +13,7 @@ from flask import request, session, redirect
 
 from app import app
 
+
 INITIAL_WORLD = {}
 
 
@@ -48,6 +49,6 @@ def reset():
     the root page.
     :return: Redirection to '/'
     """
-    session['world'] = "{}"
+    session['world'] = json.dumps(INITIAL_WORLD)
     return redirect('/')
 

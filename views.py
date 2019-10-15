@@ -1,68 +1,76 @@
+from flask import render_template, app
+from flask import request
 from route_helper import simple_route
-
-GAME_HEADER = """
-<h1>Welcome to adventure quest!</h1>
-<p>At any time you can <a href='/reset/'>reset</a> your game.</p>
-"""
+from flask import Flask
+app = Flask(__name__)
 
 
 @simple_route('/')
-def hello(world: dict) -> str:
+def hello(blog: dict) -> str:
     """
     The welcome screen for the game.
 
-    :param world: The current world
+    :param blog: The current world
     :return: The HTML to show the player
     """
-    return GAME_HEADER+"""You are in the Lair of the Corgis.<br>
-    
-    <a href="goto/lair">Go further into the lair.</a><br>
-    <a href="goto/entrance">Retreat.</a>"""
+    return render_template('index.html')
 
 
-ENCOUNTER_MONSTER = """
+@simple_route('/aesthetic/')
+def set_aesthetic_blogname(blog: dict):
+    return render_template('aesthetic_initial.html')
+
+
+@simple_route('/food/')
+def set_food_blogname(blog: dict):
+    return render_template('food_initial.html')
+
+
+@simple_route('/travel/')
+def set_travel_blogname(blog: dict):
+    return render_template('travel_initial.html')
+
+NAME_BLOG = """
+<body bgcolor="#34526F">
 <!-- Curly braces let us inject values into the string -->
-You are in {}. You found a monster!<br>
+you are creating a new {} blog. decide on a handle!<br>
 
 <!-- Image taken from site that generates random Corgi pictures-->
 <img src="http://placecorgi.com/260/180" /><br>
     
-What is its name?
+what will your username be?
 
 <!-- Form allows you to have more text entry -->    
 <form action="/save/name/">
-    <input type="text" name="player"><br>
+    <input type="text" name="title"><br>
     <input type="submit" value="Submit"><br>
 </form>
 """
 
 
-@simple_route('/goto/<where>/')
-def open_door(world: dict, where: str) -> str:
+@app.route('/aesthetic_picture_set/', methods=['POST'])
+def set_aesthetic_pictures(blog: dict):
+    blog['title'] = request.form['title']
+    print(request.form)
+    print(blog['title'])
+    return render_template('aesthetic_picture_bank.html', blog_title=blog['title'])
+
+
+@simple_route("/save/title/")
+def save_name(blog: dict, blog_name: str) -> str:
     """
-    Update the player location and encounter a monster, prompting the player
-    to give them a name.
+    Decide name of blog.
 
-    :param world: The current world
-    :param where: The new location to move to
-    :return: The HTML to show the player
-    """
-    world['location'] = where
-    return GAME_HEADER+ENCOUNTER_MONSTER.format(where)
-
-
-@simple_route("/save/name/")
-def save_name(world: dict, monsters_name: str) -> str:
-    """
-    Update the name of the monster.
-
-    :param world: The current world
-    :param monsters_name:
+    :param blog: The current world
+    :param blog_name:
     :return:
     """
-    world['name'] = monsters_name
+    blog['name'] = blog_name
 
-    return GAME_HEADER+"""You are in {where}, and you are nearby {monster_name}
+    return BLOG_HEADER+"""this is your {type} blog, and your username is {blog_name}
     <br><br>
     <a href='/'>Return to the start</a>
-    """.format(where=world['location'], monster_name=world['name'])
+    """.format(type=blog['location'], blog_name=blog['name'])
+
+
+
