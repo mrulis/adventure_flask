@@ -21,39 +21,81 @@ def set_aesthetic_blogname(blog: dict):
     return render_template('aesthetic_initial.html')
 
 
+@simple_route('/aesthetic_picture_bank/')
+def set_aesthetic_pictures(blog: dict, *args):
+    blog['title'] = request.values.get('title')
+    return render_template('aesthetic_picture_bank.html', blog = blog)
+
+
+@simple_route('/aesthetic_pic_1/')
+def aesthetic_blog_1(blog: dict):
+    return render_template('aesthetic_pic_1.html', blog = blog)
+
+
+@simple_route('/aesthetic_pic_2/')
+def aesthetic_blog_2(blog: dict):
+    return render_template('aesthetic_pic_2.html', blog = blog)
+
+
+@simple_route('/aesthetic_pic_3/')
+def aesthetic_blog_3(blog: dict):
+    return render_template('aesthetic_pic_3.html', blog = blog)
+
+
+
+
 @simple_route('/food/')
 def set_food_blogname(blog: dict):
     return render_template('food_initial.html')
+
+
+@simple_route('/food_picture_bank/')
+def set_food_pictures(blog: dict, *args):
+    blog['title'] = request.values.get('title')
+    return render_template('food_picture_bank.html', blog = blog)
+
+
+@simple_route('/food_pic_1/')
+def food_blog_1(blog: dict):
+    return render_template('food_pic_1.html', blog = blog)
+
+
+@simple_route('/food_pic_2/')
+def food_blog_2(blog: dict):
+    return render_template('food_pic_2.html', blog = blog)
+
+
+@simple_route('/food_pic_3/')
+def food_blog_3(blog: dict):
+    return render_template('food_pic_3.html', blog = blog)
+
+
 
 
 @simple_route('/travel/')
 def set_travel_blogname(blog: dict):
     return render_template('travel_initial.html')
 
-NAME_BLOG = """
-<body bgcolor="#34526F">
-<!-- Curly braces let us inject values into the string -->
-you are creating a new {} blog. decide on a handle!<br>
 
-<!-- Image taken from site that generates random Corgi pictures-->
-<img src="http://placecorgi.com/260/180" /><br>
-    
-what will your username be?
-
-<!-- Form allows you to have more text entry -->    
-<form action="/save/name/">
-    <input type="text" name="title"><br>
-    <input type="submit" value="Submit"><br>
-</form>
-"""
+@simple_route('/travel_picture_bank/')
+def set_travel_pictures(blog: dict, *args):
+    blog['title'] = request.values.get('title')
+    return render_template('travel_picture_bank.html', blog = blog)
 
 
-@app.route('/aesthetic_picture_set/', methods=['POST'])
-def set_aesthetic_pictures(blog: dict):
-    blog['title'] = request.form['title']
-    print(request.form)
-    print(blog['title'])
-    return render_template('aesthetic_picture_bank.html', blog_title=blog['title'])
+@simple_route('/travel_pic_1/')
+def travel_blog_1(blog: dict):
+    return render_template('travel_pic_1.html', blog = blog)
+
+
+@simple_route('/travel_pic_2/')
+def travel_blog_2(blog: dict):
+    return render_template('travel_pic_2.html', blog = blog)
+
+
+@simple_route('/travel_pic_3/')
+def travel_blog_3(blog: dict):
+    return render_template('travel_pic_3.html', blog = blog)
 
 
 @simple_route("/save/title/")

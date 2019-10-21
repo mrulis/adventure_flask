@@ -14,7 +14,9 @@ from flask import request, session, redirect
 from app import app
 
 
-INITIAL_WORLD = {}
+INITIAL_BLOG = {
+    "title": ""
+}
 
 
 def simple_route(path: str, **options):
@@ -33,10 +35,10 @@ def simple_route(path: str, **options):
         @app.route(path, **options)
         @wraps(f)
         def decorated_function(*args, **kwargs):
-            world = json.loads(session.get('world', json.dumps(INITIAL_WORLD)))
+            blog = json.loads(session.get('blog', json.dumps(INITIAL_BLOG)))
             values = [v for k, v in sorted(request.values.items())]
-            result = f(world, *args, *values, **kwargs)
-            session['world'] = json.dumps(world)
+            result = f(blog, *args, *values, **kwargs)
+            session['blog'] = json.dumps(blog)
             return result
         return decorated_function
     return decorator
@@ -49,6 +51,6 @@ def reset():
     the root page.
     :return: Redirection to '/'
     """
-    session['world'] = json.dumps(INITIAL_WORLD)
+    session['blog'] = json.dumps(INITIAL_BLOG)
     return redirect('/')
 
