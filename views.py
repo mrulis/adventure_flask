@@ -1,4 +1,4 @@
-from flask import render_template, app
+from flask import render_template, app, redirect
 from flask import request
 from route_helper import simple_route
 from flask import Flask
@@ -16,31 +16,44 @@ def hello(blog: dict) -> str:
     return render_template('index.html')
 
 
-@simple_route('/aesthetic/')
-def set_aesthetic_blogname(blog: dict):
-    return render_template('aesthetic_initial.html')
+@simple_route('/initial/')
+def set_blogname(blog: dict, *args):
+    blog['blog_type'] = request.values.get('blog_type')
+    return render_template('blog_title.html', blog = blog)
+
+
+@simple_route('/set_title/')
+def set_title(blog: dict, *args):
+    blog['title'] = request.values.get('title')
+    return redirect('/picture_bank/', blog = blog)
+
+
+@simple_route('/picture_bank/')
+def set_pictures(blog: dict, *args):
+    return render_template('picture_bank.html', blog = blog)
 
 
 @simple_route('/aesthetic_picture_bank/')
 def set_aesthetic_pictures(blog: dict, *args):
-    blog['title'] = request.values.get('title')
     return render_template('aesthetic_picture_bank.html', blog = blog)
 
 
 @simple_route('/aesthetic_pic_1/')
-def aesthetic_blog_1(blog: dict):
+def aesthetic_blog_1(blog: dict, *args):
+    blog['caption'] = request.values.get('caption')
     return render_template('aesthetic_pic_1.html', blog = blog)
 
 
 @simple_route('/aesthetic_pic_2/')
-def aesthetic_blog_2(blog: dict):
+def aesthetic_blog_2(blog: dict, *args):
+    blog['caption'] = request.values.get('caption')
     return render_template('aesthetic_pic_2.html', blog = blog)
 
 
 @simple_route('/aesthetic_pic_3/')
-def aesthetic_blog_3(blog: dict):
+def aesthetic_blog_3(blog: dict, *args):
+    blog['caption'] = request.values.get('caption')
     return render_template('aesthetic_pic_3.html', blog = blog)
-
 
 
 
@@ -71,7 +84,6 @@ def food_blog_3(blog: dict):
 
 
 
-
 @simple_route('/travel/')
 def set_travel_blogname(blog: dict):
     return render_template('travel_initial.html')
@@ -96,7 +108,6 @@ def travel_blog_2(blog: dict):
 @simple_route('/travel_pic_3/')
 def travel_blog_3(blog: dict):
     return render_template('travel_pic_3.html', blog = blog)
-
 
 @simple_route("/save/title/")
 def save_name(blog: dict, blog_name: str) -> str:

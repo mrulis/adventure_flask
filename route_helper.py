@@ -15,7 +15,10 @@ from app import app
 
 
 INITIAL_BLOG = {
-    "title": ""
+    "title": "",
+    "caption": None,
+    "blog_type": "",
+    "picture": ""
 }
 
 

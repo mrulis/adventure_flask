@@ -11,9 +11,21 @@
 <p style="text-align:center; color:black; font-size:15px">welcome to your new blog</p>
 <p style="text-align:center; color:black; font-size:15px">at any time you can <a href='/reset/'>reset</a> your blog creation process</p><br>
 
-<br>
-<p style="text-align:center; color:black; font-size:15px;"><i>I have a whole little world in my brain</i></p>
-<img src="/static/aesthetic_picture_2.jpeg" style="width:500px; height:750px; border:0; display: block; margin-left: auto; margin-right: auto;" alt="aesthetic pic 2">
+{% if blog["caption"] != None%}
+    <p style="text-align:center; color:black; font-size:15px;"><i>{{ blog["caption"] }}</i></p>
+{% else %}
+    <form style="text-align: center" action="/aesthetic_pic_2/">
+    <input type="text" name="caption"><br>
+    <input type="submit" value="caption the picture!"><br>
+    </form>
+    <br>
+{% endif %}
 
+<img src="/static/aesthetic_pic_2.jpeg" style="width:500px; height:700px; border:0; display: block; margin-left: auto; margin-right: auto;" alt="aesthetic pic 2">
+<br>
+
+<form style="text-align: center" action="/aesthetic_picture_bank/">
+<input type="submit" value="delete this post">
+</form>
 </body>
 </html>
