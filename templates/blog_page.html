@@ -14,7 +14,7 @@
 {% if blog["caption"] != None%}
     <p style="text-align:center; color:black; font-size:15px;"><i>{{ blog["caption"] }}</i></p>
 {% else %}
-    <form style="text-align: center" action="/blog_page/">
+    <form style="text-align: center" action="/set_caption/">
     <input type="text" name="caption"><br>
     <input type="submit" value="caption the picture!"><br>
     </form>
@@ -32,7 +32,7 @@
 <br>
 
 {% if blog["text_post"] != None %}
-    <h2><i><p style="text-align:center; color:black; font-size:15px;">{{ blog["text_post"] }}</p></i></h2>
+    <h1><p style="text-align:center; color:black; font-size:15px;">{{ blog["text_post"] }}</p></h1>
 {% else %}
     <form style="text-align: center" action="/text_post/">
     <input type="submit" value="make a text post"><br>
