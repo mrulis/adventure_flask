@@ -2,30 +2,44 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>aesthetic</title>
+    <title>blog page</title>
 </head>
 <body bgcolor="#c2d7fc">
 <h1><p style="text-align:center; color:dimgray;">{{ blog["title"] }}</p></h1>
 
-
 <p style="text-align:center; color:black; font-size:15px">welcome to your new blog</p>
 <p style="text-align:center; color:black; font-size:15px">at any time you can <a href='/reset/'>reset</a> your blog creation process</p><br>
+
 
 {% if blog["caption"] != None%}
     <p style="text-align:center; color:black; font-size:15px;"><i>{{ blog["caption"] }}</i></p>
 {% else %}
-    <form style="text-align: center" action="/aesthetic_pic_2/">
+    <form style="text-align: center" action="/blog_page/">
     <input type="text" name="caption"><br>
     <input type="submit" value="caption the picture!"><br>
     </form>
     <br>
 {% endif %}
 
-<img src="/static/aesthetic_pic_2.jpeg" style="width:500px; height:700px; border:0; display: block; margin-left: auto; margin-right: auto;" alt="aesthetic pic 2">
+
+<img src="/static/{{ blog["blog_type"] }}_pic_{{ blog['picture'] }}.jpeg" style="border:0; display: block; margin-left: auto; margin-right: auto;" alt="pic 1">
 <br>
 
 <form style="text-align: center" action="/picture_bank/">
 <input type="submit" value="delete this post">
 </form>
+<br>
+<br>
+
+{% if blog["text_post"] != None %}
+    <h2><i><p style="text-align:center; color:black; font-size:15px;">{{ blog["text_post"] }}</p></i></h2>
+{% else %}
+    <form style="text-align: center" action="/text_post/">
+    <input type="submit" value="make a text post"><br>
+    </form>
+    <br>
+{% endif %}
+
+
 </body>
 </html>

@@ -1,3 +1,5 @@
+from pprint import pprint
+
 from flask import render_template, app, redirect
 from flask import request
 from route_helper import simple_route
@@ -25,12 +27,37 @@ def set_blogname(blog: dict, *args):
 @simple_route('/set_title/')
 def set_title(blog: dict, *args):
     blog['title'] = request.values.get('title')
-    return redirect('/picture_bank/', blog = blog)
+    return redirect('/picture_bank/')
 
 
 @simple_route('/picture_bank/')
 def set_pictures(blog: dict, *args):
     return render_template('picture_bank.html', blog = blog)
+
+
+@simple_route('/set_picture/')
+def set_picture(blog: dict, *args):
+    blog['picture'] = request.values.get('image')
+    return redirect('/blog_page/')
+
+
+@simple_route('/blog_page/')
+def make_page(blog: dict, *args):
+    blog['caption'] = request.values.get('caption')
+    blog['text_post'] = request.values.get('text_post')
+    return render_template('blog_page.html', blog = blog)
+
+
+@simple_route('/text_post/')
+def set_text_post(blog: dict, *args):
+    return render_template('text_post.html', blog = blog)
+
+
+@simple_route('/set_text/')
+def set_text(blog: dict, *args):
+    blog['text_post'] = request.values.get('text_post')
+    return redirect('/blog_page/')
+
 
 
 @simple_route('/aesthetic_picture_bank/')

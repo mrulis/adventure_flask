@@ -18,7 +18,8 @@ INITIAL_BLOG = {
     "title": "",
     "caption": None,
     "blog_type": "",
-    "picture": ""
+    "picture": "",
+    "text_post": None
 }
 
 
